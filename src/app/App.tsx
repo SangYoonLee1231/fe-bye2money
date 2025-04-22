@@ -4,7 +4,7 @@ import Layout from "../features/layout/Layout";
 
 const App = () => {
   return (
-    <div>
+    <div className="flex flex-col w-full h-full">
       <Layout />
       <main>
         <Outlet />
