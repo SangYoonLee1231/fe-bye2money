@@ -6,17 +6,20 @@ import LogoButton from "./components/Header/LogoButton";
 import MonthNavigator from "./components/Header/MonthNavigator";
 import ViewTabs from "./components/Header/ViewTabs";
 import { useYearMonthRouter } from "../../hooks/useYearMonthRouter";
+import { useEntryActions } from "../../hooks/useEntryActions";
 
 export default function Layout() {
-  const fetchLogs = useCallback(async (year: number, month: number) => {
-    const res = await fetch(`/api/logs?year=${year}&month=${month}`);
-    const data = await res.json();
-    console.log("Loaded logs:", data);
-    // → 전역 상태나 Context, Recoil 등에 저장
-  }, []);
+  const { fetchEntries } = useEntryActions(); // 👈 새 훅 사용
+
+  const loadMonthLogs = useCallback(
+    (year: number, month: number) => {
+      fetchEntries(year, month); // 👈 Context 상태에 저장
+    },
+    [fetchEntries]
+  );
 
   const { year, month, prevMonth, nextMonth } = useYearMonthRouter({
-    onChange: fetchLogs,
+    onChange: loadMonthLogs,
   });
 
   return (
