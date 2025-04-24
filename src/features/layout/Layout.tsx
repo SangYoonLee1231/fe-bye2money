@@ -1,46 +1,63 @@
+// src/features/layout/Layout.tsx
+import { useCallback } from "react";
 import styled from "@emotion/styled";
+import { Outlet } from "react-router-dom";
 import LogoButton from "./components/Header/LogoButton";
 import MonthNavigator from "./components/Header/MonthNavigator";
 import ViewTabs from "./components/Header/ViewTabs";
+import { useYearMonthRouter } from "../../hooks/useYearMonthRouter";
 
-const Layout = () => {
+export default function Layout() {
+  const fetchLogs = useCallback(async (year: number, month: number) => {
+    const res = await fetch(`/api/logs?year=${year}&month=${month}`);
+    const data = await res.json();
+    console.log("Loaded logs:", data);
+    // → 전역 상태나 Context, Recoil 등에 저장
+  }, []);
+
+  const { year, month, prevMonth, nextMonth } = useYearMonthRouter({
+    onChange: fetchLogs,
+  });
+
   return (
-    <Header>
-      <LayoutContainer>
-        <LogoButton />
-        <MonthNavigator />
-        <ViewTabs />
-      </LayoutContainer>
-    </Header>
+    <>
+      <Header>
+        <HeaderContainer>
+          <LogoButton />
+          <MonthNavigator
+            year={year}
+            month={month}
+            onPrev={prevMonth}
+            onNext={nextMonth}
+          />
+          <ViewTabs />
+        </HeaderContainer>
+      </Header>
+      <Main>
+        <Outlet />
+      </Main>
+    </>
   );
-};
-
-export default Layout;
+}
 
 const Header = styled.header`
-  /* 뷰포트 기준으로 고정 */
   position: fixed;
   top: 0;
   left: 0;
-  /* 부모(보통 body 또는 #root) 너비 100% 만큼 차지
-  – 100vw 대신 100%를 사용해 스크롤바 오버플로우 문제 방지 */
   width: 100%;
-  /* 다른 콘텐츠보다 위에 보이도록 z-index 설정 */
-  /* z-index: 1000; */
-  /* 이와 다른 css 속성 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 13.5rem;
   background: ${({ theme }) => theme.colors.colorchip[80]};
-  padding: 0 1rem;
 `;
 
-const LayoutContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 52.875rem;
+const HeaderContainer = styled.div`
+  max-width: 52.875rem;
+  margin: 0 auto;
   height: 7rem;
-  margin: 2.5rem 0 3.75rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem 1rem 3.75rem;
+`;
+
+const Main = styled.main`
+  padding-top: 13.5rem; /* Header 높이만큼 띄우기 */
 `;

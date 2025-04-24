@@ -1,17 +1,17 @@
-// src/main.tsx
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+// src/index.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
-import App from "./app/App";
+import { router } from "./app/router";
 import { theme } from "./styles/theme";
 import GlobalStyles from "./styles/GlobalStyles";
 
-const root = createRoot(document.getElementById("root")!);
-root.render(
-  <StrictMode>
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <App />
+      <RouterProvider router={router} />
     </ThemeProvider>
-  </StrictMode>
+  </React.StrictMode>
 );
