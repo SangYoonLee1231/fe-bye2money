@@ -43,6 +43,10 @@ const Container = styled.div`
   /* */
   width: 14.5rem;
   height: 7rem;
+
+  img {
+    cursor: pointer;
+  }
 `;
 
 const CurrDateArea = styled.div`
