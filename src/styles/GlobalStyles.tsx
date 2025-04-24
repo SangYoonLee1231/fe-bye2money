@@ -5,6 +5,14 @@ import "pretendard/dist/web/variable/pretendardvariable.css";
 const GlobalStyles = () => (
   <Global
     styles={(theme) => css`
+      @font-face {
+        font-family: "ChosunCentennial";
+        src: url("/fonts/ChosunCentennial.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        /* 필요시 font-display: swap; 등 추가 */
+      }
+
       html,
       body,
       div,
@@ -108,6 +116,7 @@ const GlobalStyles = () => (
         display: block;
       }
       body {
+        font-family: "Pretendard Variable", serif;
         line-height: 1;
       }
       ol,
@@ -131,7 +140,6 @@ const GlobalStyles = () => (
       }
 
       :root {
-        font-family: "Pretendard Variable", sans-serif;
         line-height: 1.5;
         font-weight: 400;
 

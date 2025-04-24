@@ -13,9 +13,24 @@ export function useYearMonthRouter({ onChange }: Props) {
   }>();
   const navigate = useNavigate();
   const today = new Date();
+  const monthNumToEng = {
+    1: "January",
+    2: "February",
+    3: "March",
+    4: "April",
+    5: "May",
+    6: "June",
+    7: "July",
+    8: "August",
+    9: "September",
+    10: "October",
+    11: "November",
+    12: "December",
+  };
 
   const year = yParam ? parseInt(yParam, 10) : today.getFullYear();
   const month = mParam ? parseInt(mParam, 10) : today.getMonth() + 1;
+  const monthEng = monthNumToEng[month as keyof typeof monthNumToEng];
 
   const normalize = (y: number, m: number) => {
     if (m < 1) return { y: y - 1, m: 12 };
@@ -37,5 +52,5 @@ export function useYearMonthRouter({ onChange }: Props) {
     onChange(year, month);
   }, [year, month, onChange]);
 
-  return { year, month, prevMonth, nextMonth };
+  return { year, month, monthEng, prevMonth, nextMonth };
 }

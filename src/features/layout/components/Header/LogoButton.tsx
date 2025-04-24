@@ -1,29 +1,22 @@
-// import styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import Logo from "../../../../assets/Logo.svg";
 
 const LogoButton = () => {
+  const handleRefresh = () => {
+    window.location.reload();
+  };
   return (
-    <div>
+    <LogoContainer onClick={handleRefresh}>
       <img src={Logo} alt="Logo" />
-    </div>
+    </LogoContainer>
   );
 };
 
 export default LogoButton;
 
-// const Logo = styled.img`
-//   background: transparent;
-//   border: none;
-//   cursor: pointer;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 0.5rem;
-
-//   &:hover {
-//     border-radius: 50%; /* 원형 버튼 */
-//   }
-
-//   width: 2rem; /* 아이콘 크기 조정 */
-//   height: auto;
-// `;
+const LogoContainer = styled.div`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

@@ -18,7 +18,7 @@ export default function Layout() {
     [fetchEntries]
   );
 
-  const { year, month, prevMonth, nextMonth } = useYearMonthRouter({
+  const { year, month, monthEng, prevMonth, nextMonth } = useYearMonthRouter({
     onChange: loadMonthLogs,
   });
 
@@ -30,6 +30,7 @@ export default function Layout() {
           <MonthNavigator
             year={year}
             month={month}
+            monthEng={monthEng}
             onPrev={prevMonth}
             onNext={nextMonth}
           />
@@ -56,8 +57,9 @@ const HeaderContainer = styled.div`
   margin: 0 auto;
   height: 7rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  position: relative;
   padding: 2.5rem 1rem 3.75rem;
 `;
 

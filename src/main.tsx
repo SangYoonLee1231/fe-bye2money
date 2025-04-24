@@ -1,6 +1,7 @@
 // src/index.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { EntriesProvider } from "./context/entries/EntriesContext";
 import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import { router } from "./app/router";
@@ -9,9 +10,11 @@ import GlobalStyles from "./styles/GlobalStyles";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <EntriesProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </EntriesProvider>
   </React.StrictMode>
 );

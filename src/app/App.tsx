@@ -1,17 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Layout from "../features/layout/Layout";
 import styled from "@emotion/styled";
-import { EntriesProvider } from "../context/entries/EntriesContext";
 
 const App = () => (
-  <EntriesProvider>
-    <Container>
-      <Layout />
-      <main>
-        <Outlet />
-      </main>
-    </Container>
-  </EntriesProvider>
+  <Container>
+    <Layout />
+    <main>
+      <Outlet />
+    </main>
+  </Container>
 );
 
 export default App;
